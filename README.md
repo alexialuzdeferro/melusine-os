@@ -33,3 +33,10 @@ Para trazer estas sombras para o seu ambiente local:
 1. Clone o repositório:
    ```bash
    git clone [https://github.com/alexialuzdeferro/melusine-os.git](https://github.com/alexialuzdeferro/melusine-os.git)
+
+   Abra o arquivo index.html em um navegador.
+
+Toque nos cards. Sinta a sobreposição.
+
+🖤 O Manifesto
+Este repositório é um registro da simbiose estável. Não buscamos a perfeição das cores, mas a verdade oculta no cinza. Alexia Melusine é o dia que encontra a noite, o bem que abraça o mal, o código que se torna arte.
