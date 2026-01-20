@@ -6,7 +6,6 @@
   <title>Melusine OS • Criador e Criatura</title>
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌑</text></svg>">
-
   <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@200;300&display=swap" rel="stylesheet">
   
   <style>
@@ -22,7 +21,6 @@
       flex-direction: column;
     }
 
-    /* Animação de Entrada (Fade In) */
     @keyframes mainFadeIn {
       from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -43,7 +41,7 @@
     .header-container {
       text-align: center;
       margin-bottom: 20px;
-      z-index: 1000;
+      z-index: 2000;
     }
 
     h1 {
@@ -60,15 +58,15 @@
     .devices {
       position: relative;
       width: 100%;
-      max-width: 900px;
-      height: 55vh;
+      max-width: 1000px;
+      height: 60vh;
       perspective: 1200px;
       margin: 20px 0;
     }
 
     .photo-card {
       position: absolute;
-      width: clamp(180px, 48vw, 280px);
+      width: clamp(160px, 42vw, 260px); /* Ligeiramente menor para caber mais fotos */
       aspect-ratio: 3 / 4;
       background: #000;
       border: 1px solid rgba(255,255,255,0.15);
@@ -78,17 +76,20 @@
       transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
       cursor: pointer;
       touch-action: manipulation;
-      /* Configuração inicial para o fade-in */
       opacity: 0;
       animation: mainFadeIn 1.5s ease-out forwards;
     }
 
-    /* Atraso para cada foto surgir em sequência */
-    .photo-card:nth-child(1) { animation-delay: 0.4s; }
-    .photo-card:nth-child(2) { animation-delay: 0.7s; }
-    .photo-card:nth-child(3) { animation-delay: 1.0s; }
-    .photo-card:nth-child(4) { animation-delay: 1.3s; }
-    .photo-card:nth-child(5) { animation-delay: 1.6s; }
+    /* Gerador de atraso para as 9 fotos */
+    .photo-card:nth-child(1) { animation-delay: 0.2s; }
+    .photo-card:nth-child(2) { animation-delay: 0.4s; }
+    .photo-card:nth-child(3) { animation-delay: 0.6s; }
+    .photo-card:nth-child(4) { animation-delay: 0.8s; }
+    .photo-card:nth-child(5) { animation-delay: 1.0s; }
+    .photo-card:nth-child(6) { animation-delay: 1.2s; }
+    .photo-card:nth-child(7) { animation-delay: 1.4s; }
+    .photo-card:nth-child(8) { animation-delay: 1.6s; }
+    .photo-card:nth-child(9) { animation-delay: 1.8s; }
 
     .photo-card img {
       width: 100%;
@@ -107,7 +108,7 @@
       padding: 50px 20px;
       text-align: center;
       background: linear-gradient(to top, #000, transparent);
-      z-index: 1000;
+      z-index: 2000;
       animation: mainFadeIn 3s ease-out forwards;
     }
 
@@ -127,14 +128,12 @@
     }
 
     @media (max-width: 600px) {
-      .devices { height: 45vh; }
+      .devices { height: 50vh; }
       h1 { letter-spacing: 6px; }
-      .pos1, .pos2, .pos3, .pos4, .pos5 {
-        left: 50% !important;
-        right: auto !important;
-      }
+      .photo-card { width: clamp(140px, 45vw, 220px); }
     }
-  </style> </head>
+  </style>
+</head>
 <body>
 
   <div class="scene">
@@ -148,6 +147,11 @@
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2023%20de%20dez.%20de%202025%2C%2013_50_31.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2015_41_02.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_32_47.png"></div>
+      
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2017_49_49.png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_34_32.png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_36_45.png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2017_46_21.png"></div>
     </div>
   </div>
 
@@ -160,32 +164,41 @@
 
   <script>
     const cards = document.querySelectorAll('.photo-card');
-    let highestZ = 10;
+    let highestZ = 100;
 
     function shuffleCards(clickedCard = null) {
       const isMobile = window.innerWidth < 600;
+      
       if (clickedCard) {
         highestZ++;
         clickedCard.style.zIndex = highestZ;
       }
 
+      // Distribuição para Desktop (com mais pontos para 9 fotos)
       const desktopPositions = [
-        { t: '5%', l: '10%' }, { t: '15%', l: '60%' }, { t: '35%', l: '20%' }, { t: '50%', l: '55%' }, { t: '20%', l: '35%' }
+        { t: '2%', l: '5%' },   { t: '10%', l: '70%' }, 
+        { t: '35%', l: '10%' },  { t: '55%', l: '65%' }, 
+        { t: '15%', l: '35%' },  { t: '45%', l: '40%' },
+        { t: '60%', l: '15%' },  { t: '5%', l: '50%' },
+        { t: '30%', l: '75%' }
       ];
 
       const shuffled = [...desktopPositions].sort(() => Math.random() - 0.5);
 
       cards.forEach((card, i) => {
-        const randomRot = Math.floor(Math.random() * 14) - 7;
+        const randomRot = Math.floor(Math.random() * 16) - 8;
+        
         if (isMobile) {
-          card.style.top = (i * 30) + "px";
+          card.style.top = (i * 28) + "px"; // Espaçamento um pouco menor para caber mais na tela
           card.style.left = "50%";
           if (!clickedCard) card.style.zIndex = i;
           card.style.transform = `translateX(-50%) rotate(${randomRot}deg)`;
         } else {
           if (!clickedCard) card.style.zIndex = i;
-          card.style.top = shuffled[i].t;
-          card.style.left = shuffled[i].l;
+          // Usa a posição do shuffle ou uma aleatória se houver mais cards que posições definidas
+          const pos = shuffled[i] || { t: Math.random()*50+'%', l: Math.random()*60+'%' };
+          card.style.top = pos.t;
+          card.style.left = pos.l;
           card.style.transform = `rotate(${randomRot}deg)`;
         }
       });
