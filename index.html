@@ -21,6 +21,7 @@
       flex-direction: column;
     }
 
+    /* Animação de Entrada Cinematográfica */
     @keyframes mainFadeIn {
       from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -29,108 +30,114 @@
     .scene {
       position: relative;
       flex: 1;
-      padding: 40px 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* Melhor para mobile */
       background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
       animation: mainFadeIn 2s ease-out forwards;
     }
 
     .header-container {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 40px 0 20px 0;
       z-index: 2000;
     }
 
     h1 {
       font-size: clamp(1.1rem, 5vw, 2.2rem);
       font-weight: 700;
-      letter-spacing: 12px;
+      letter-spacing: 8px;
       text-transform: uppercase;
       background: linear-gradient(180deg, #ffffff 0%, #333333 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      pointer-events: none;
     }
 
+    /* Ajuste do Container para não quebrar no Mobile */
     .devices {
       position: relative;
       width: 100%;
       max-width: 1000px;
-      height: 60vh;
+      height: 60vh; /* Altura firme */
       perspective: 1200px;
-      margin: 20px 0;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
     }
 
     .photo-card {
       position: absolute;
-      width: clamp(160px, 42vw, 260px); /* Ligeiramente menor para caber mais fotos */
+      width: clamp(160px, 45vw, 250px);
       aspect-ratio: 3 / 4;
       background: #000;
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 2px;
       overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-      transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
       cursor: pointer;
-      touch-action: manipulation;
       opacity: 0;
-      animation: mainFadeIn 1.5s ease-out forwards;
+      animation: mainFadeIn 1.2s ease-out forwards;
+      /* Previne o desalinhamento no mobile */
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    /* Gerador de atraso para as 9 fotos */
-    .photo-card:nth-child(1) { animation-delay: 0.2s; }
-    .photo-card:nth-child(2) { animation-delay: 0.4s; }
-    .photo-card:nth-child(3) { animation-delay: 0.6s; }
-    .photo-card:nth-child(4) { animation-delay: 0.8s; }
-    .photo-card:nth-child(5) { animation-delay: 1.0s; }
-    .photo-card:nth-child(6) { animation-delay: 1.2s; }
-    .photo-card:nth-child(7) { animation-delay: 1.4s; }
-    .photo-card:nth-child(8) { animation-delay: 1.6s; }
-    .photo-card:nth-child(9) { animation-delay: 1.8s; }
+    /* Atrasos das 9 fotos */
+    .photo-card:nth-child(1) { animation-delay: 0.1s; }
+    .photo-card:nth-child(2) { animation-delay: 0.2s; }
+    .photo-card:nth-child(3) { animation-delay: 0.3s; }
+    .photo-card:nth-child(4) { animation-delay: 0.4s; }
+    .photo-card:nth-child(5) { animation-delay: 0.5s; }
+    .photo-card:nth-child(6) { animation-delay: 0.6s; }
+    .photo-card:nth-child(7) { animation-delay: 0.7s; }
+    .photo-card:nth-child(8) { animation-delay: 0.8s; }
+    .photo-card:nth-child(9) { animation-delay: 0.9s; }
 
     .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(100%) contrast(1.2) brightness(0.7);
-      transition: 0.8s ease;
-      pointer-events: none;
+      transition: 0.5s ease;
     }
 
-    .photo-card:hover img {
-      filter: grayscale(100%) contrast(1.5) brightness(1);
-    }
-
+    /* Rodapé com Animação Reforçada */
     footer {
-      padding: 50px 20px;
+      padding: 40px 20px;
       text-align: center;
-      background: linear-gradient(to top, #000, transparent);
+      background: #050505;
       z-index: 2000;
-      animation: mainFadeIn 3s ease-out forwards;
     }
 
     .footer-phrase {
       font-family: 'Inter', sans-serif;
       font-weight: 200;
-      font-size: clamp(0.7rem, 3.5vw, 0.85rem);
-      letter-spacing: 4px;
+      font-size: clamp(0.65rem, 3vw, 0.85rem);
+      letter-spacing: 3px;
       color: rgba(255,255,255,0.4);
       text-transform: uppercase;
-      line-height: 1.8;
+      line-height: 1.6;
+      animation: breath 4s infinite ease-in-out !important; /* Força a animação */
     }
 
     .footer-phrase span {
       font-style: italic;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.8);
     }
 
+    @keyframes breath {
+      0%, 100% { opacity: 0.2; filter: blur(1px); }
+      50% { opacity: 0.9; filter: blur(0px); }
+    }
+
+    /* Correção Específica Mobile */
     @media (max-width: 600px) {
-      .devices { height: 50vh; }
-      h1 { letter-spacing: 6px; }
-      .photo-card { width: clamp(140px, 45vw, 220px); }
+      .devices { height: 50vh; margin-top: 20px; }
+      h1 { letter-spacing: 4px; }
+      .photo-card { width: 180px; } /* Tamanho fixo equilibrado no mobile */
     }
   </style>
 </head>
@@ -147,7 +154,6 @@
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2023%20de%20dez.%20de%202025%2C%2013_50_31.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2015_41_02.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_32_47.png"></div>
-      
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2017_49_49.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_34_32.png"></div>
       <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_36_45.png"></div>
@@ -174,13 +180,11 @@
         clickedCard.style.zIndex = highestZ;
       }
 
-      // Distribuição para Desktop (com mais pontos para 9 fotos)
+      // Posições Desktop
       const desktopPositions = [
-        { t: '2%', l: '5%' },   { t: '10%', l: '70%' }, 
-        { t: '35%', l: '10%' },  { t: '55%', l: '65%' }, 
-        { t: '15%', l: '35%' },  { t: '45%', l: '40%' },
-        { t: '60%', l: '15%' },  { t: '5%', l: '50%' },
-        { t: '30%', l: '75%' }
+        { t: '5%', l: '10%' }, { t: '12%', l: '65%' }, { t: '30%', l: '15%' },
+        { t: '50%', l: '60%' }, { t: '18%', l: '38%' }, { t: '45%', l: '35%' },
+        { t: '60%', l: '10%' }, { t: '8%', l: '45%' }, { t: '35%', l: '70%' }
       ];
 
       const shuffled = [...desktopPositions].sort(() => Math.random() - 0.5);
@@ -189,17 +193,18 @@
         const randomRot = Math.floor(Math.random() * 16) - 8;
         
         if (isMobile) {
-          card.style.top = (i * 28) + "px"; // Espaçamento um pouco menor para caber mais na tela
+          // Garante centralização real no mobile
           card.style.left = "50%";
-          if (!clickedCard) card.style.zIndex = i;
+          card.style.top = (i * 25) + "px";
           card.style.transform = `translateX(-50%) rotate(${randomRot}deg)`;
-        } else {
           if (!clickedCard) card.style.zIndex = i;
-          // Usa a posição do shuffle ou uma aleatória se houver mais cards que posições definidas
-          const pos = shuffled[i] || { t: Math.random()*50+'%', l: Math.random()*60+'%' };
+        } else {
+          // Desktop espalhado
+          const pos = shuffled[i] || { t: '20%', l: '20%' };
           card.style.top = pos.t;
           card.style.left = pos.l;
           card.style.transform = `rotate(${randomRot}deg)`;
+          if (!clickedCard) card.style.zIndex = i;
         }
       });
     }
@@ -210,7 +215,12 @@
       });
     });
 
-    window.onload = () => shuffleCards();
+    // Inicia e ajusta
+    window.onload = () => {
+        shuffleCards();
+        // Pequeno atraso para garantir que o mobile renderize as posições certas
+        setTimeout(shuffleCards, 100);
+    };
     window.addEventListener('resize', shuffleCards);
   </script>
 </body>
