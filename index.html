@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Melusine OS • Criador e Criatura</title>
   
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌑</text></svg>">
+
   <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@200;300&display=swap" rel="stylesheet">
   
   <style>
-    /* Reset e Configurações Base */
     * { margin:0; padding:0; box-sizing:border-box; }
     
     body {
       min-height: 100vh;
-      background: #050505; /* Preto Profundo */
+      background: #050505;
       color: #ffffff;
       font-family: 'Syncopate', sans-serif;
       overflow-x: hidden;
@@ -21,7 +22,12 @@
       flex-direction: column;
     }
 
-    /* Cena Principal */
+    /* Animação de Entrada (Fade In) */
+    @keyframes mainFadeIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
     .scene {
       position: relative;
       flex: 1;
@@ -31,13 +37,13 @@
       align-items: center;
       justify-content: center;
       background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+      animation: mainFadeIn 2s ease-out forwards;
     }
 
-    /* Título Superior */
     .header-container {
       text-align: center;
       margin-bottom: 20px;
-      z-index: 1000; /* Garante que o título fique sobre os cards se necessário */
+      z-index: 1000;
     }
 
     h1 {
@@ -51,7 +57,6 @@
       pointer-events: none;
     }
 
-    /* Container dos Cards */
     .devices {
       position: relative;
       width: 100%;
@@ -61,7 +66,6 @@
       margin: 20px 0;
     }
 
-    /* Card de Foto Estilo Noir */
     .photo-card {
       position: absolute;
       width: clamp(180px, 48vw, 280px);
@@ -71,38 +75,40 @@
       border-radius: 2px;
       overflow: hidden;
       box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-      /* Transição suave para movimento e z-index */
       transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
       cursor: pointer;
       touch-action: manipulation;
+      /* Configuração inicial para o fade-in */
+      opacity: 0;
+      animation: mainFadeIn 1.5s ease-out forwards;
     }
 
-    /* Filtro P&B nas Imagens */
+    /* Atraso para cada foto surgir em sequência */
+    .photo-card:nth-child(1) { animation-delay: 0.4s; }
+    .photo-card:nth-child(2) { animation-delay: 0.7s; }
+    .photo-card:nth-child(3) { animation-delay: 1.0s; }
+    .photo-card:nth-child(4) { animation-delay: 1.3s; }
+    .photo-card:nth-child(5) { animation-delay: 1.6s; }
+
     .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(100%) contrast(1.2) brightness(0.7);
       transition: 0.8s ease;
-      pointer-events: none; /* Evita que o clique pegue na imagem em vez do card */
+      pointer-events: none;
     }
 
-    /* Destaque no Hover/Ativo */
     .photo-card:hover img {
       filter: grayscale(100%) contrast(1.5) brightness(1);
     }
 
-    .photo-card:active {
-      border-color: #fff;
-      transform: scale(1.05) !important;
-    }
-
-    /* Rodapé com Frase Misteriosa */
     footer {
       padding: 50px 20px;
       text-align: center;
       background: linear-gradient(to top, #000, transparent);
       z-index: 1000;
+      animation: mainFadeIn 3s ease-out forwards;
     }
 
     .footer-phrase {
@@ -113,7 +119,6 @@
       color: rgba(255,255,255,0.4);
       text-transform: uppercase;
       line-height: 1.8;
-      animation: breath 4s infinite ease-in-out;
     }
 
     .footer-phrase span {
@@ -121,24 +126,15 @@
       color: rgba(255,255,255,0.7);
     }
 
-    @keyframes breath {
-      0%, 100% { opacity: 0.3; filter: blur(1px); }
-      50% { opacity: 0.8; filter: blur(0px); }
-    }
-
-    /* Media Query para Celulares */
     @media (max-width: 600px) {
       .devices { height: 45vh; }
       h1 { letter-spacing: 6px; }
-      
-      /* Centraliza os cards no mobile */
       .pos1, .pos2, .pos3, .pos4, .pos5 {
         left: 50% !important;
         right: auto !important;
       }
     }
-  </style>
-</head>
+  </style> </head>
 <body>
 
   <div class="scene">
@@ -147,11 +143,11 @@
     </div>
 
     <div class="devices" id="gallery">
-      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/Al%C3%AA%20(2).png" alt="Card 1"></div>
-      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/Al%C3%AA%20(3).png" alt="Card 2"></div>
-      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2023%20de%20dez.%20de%202025%2C%2013_50_31.png" alt="Card 3"></div>
-      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2015_41_02.png" alt="Card 4"></div>
-      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_32_47.png" alt="Card 5"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/Al%C3%AA%20(2).png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/Al%C3%AA%20(3).png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2023%20de%20dez.%20de%202025%2C%2013_50_31.png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025%20de%20dez.%20de%202025%2C%2015_41_02.png"></div>
+      <div class="photo-card"><img src="https://raw.githubusercontent.com/alexialuzdeferro/card-photos/refs/heads/main/ChatGPT%20Image%2025_12_2025%2C%2017_32_47.png"></div>
     </div>
   </div>
 
@@ -164,46 +160,30 @@
 
   <script>
     const cards = document.querySelectorAll('.photo-card');
-    let highestZ = 10; // Controla quem está no topo
+    let highestZ = 10;
 
     function shuffleCards(clickedCard = null) {
       const isMobile = window.innerWidth < 600;
-      
-      // Se um card for clicado, ele vai para a frente de todos
       if (clickedCard) {
         highestZ++;
         clickedCard.style.zIndex = highestZ;
       }
 
-      // Definição de posições espalhadas para Desktop
       const desktopPositions = [
-        { t: '5%', l: '10%' },
-        { t: '15%', l: '60%' },
-        { t: '35%', l: '20%' },
-        { t: '50%', l: '55%' },
-        { t: '20%', l: '35%' }
+        { t: '5%', l: '10%' }, { t: '15%', l: '60%' }, { t: '35%', l: '20%' }, { t: '50%', l: '55%' }, { t: '20%', l: '35%' }
       ];
 
-      // Embaralha o array de posições
       const shuffled = [...desktopPositions].sort(() => Math.random() - 0.5);
 
       cards.forEach((card, i) => {
-        const randomRot = Math.floor(Math.random() * 14) - 7; // Rotação entre -7 e 7 graus
-        
+        const randomRot = Math.floor(Math.random() * 14) - 7;
         if (isMobile) {
-          // Lógica Mobile: Empilhamento centralizado
           card.style.top = (i * 30) + "px";
           card.style.left = "50%";
-          // Se não houver clique ainda, define Z-index inicial
           if (!clickedCard) card.style.zIndex = i;
-          
           card.style.transform = `translateX(-50%) rotate(${randomRot}deg)`;
         } else {
-          // Lógica Desktop: Espalhado
           if (!clickedCard) card.style.zIndex = i;
-          
-          // Se o card for o clicado, ele mantém sua posição atual ou pega uma nova? 
-          // Aqui fazemos todos mudarem para uma nova posição do shuffle
           card.style.top = shuffled[i].t;
           card.style.left = shuffled[i].l;
           card.style.transform = `rotate(${randomRot}deg)`;
@@ -211,23 +191,14 @@
       });
     }
 
-    // Eventos de Clique
     cards.forEach(card => {
       card.addEventListener('click', function() {
         shuffleCards(this);
       });
     });
 
-    // Inicialização
     window.onload = () => shuffleCards();
-    
-    // Reajusta ao girar o celular ou redimensionar a tela
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(shuffleCards, 250);
-    });
+    window.addEventListener('resize', shuffleCards);
   </script>
-
 </body>
 </html>
